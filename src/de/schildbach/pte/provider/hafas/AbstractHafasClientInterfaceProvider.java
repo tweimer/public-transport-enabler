@@ -779,11 +779,21 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
 //                        }
 //                    }
                     if (destination == null) {
-                        if (plainDirectionLocation != null) {
-                            if (destinationIsCommonlyDirection) {
+                        if (destinationIsCommonlyDirection) {
+                            if (plainDirectionLocation != null) {
                                 destination = new Destination(jnyDirTxt, plainDirectionLocation, false);
-                            } else {
-                                destination = new Destination(jnyDirTxt, splitDirectionLocation, true);
+                            }
+                        } else {
+                            if (splitDirectionLocation != null) {
+                                // destination = new Destination(jnyDirTxt, splitDirectionLocation, true);
+                                destination = new Destination(
+                                        jnyDirTxt,
+                                        new Location(
+                                                LocationType.STATION,
+                                                splitDirectionLocation.id,
+                                                splitDirectionLocation.place,
+                                                splitDirectionLocation.name),
+                                        false);
                             }
                         }
                     }
@@ -1318,7 +1328,7 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
                     if (fares.isEmpty()) {
                         // find the first fare with same price as suggested by total price
                         final Price totalPrice = parsePriceObject(trfRes.optJSONObject("totalPrice"));
-                        if (totalPrice != null) {
+                        if (totalPrice != null && fareSetList != null) {
                             FareSetLoop:
                             for (int iFareSet = 0; iFareSet < fareSetList.length(); iFareSet++) {
                                 final JSONObject jsonFareSet = fareSetList.getJSONObject(iFareSet);
