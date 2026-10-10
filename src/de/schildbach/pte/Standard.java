@@ -107,7 +107,7 @@ public class Standard {
 
         if (label != null) {
             // check for line match
-            final Style style = specialLineStyle(styles, network, product.code + Objects.toString(label, ""));
+            Style style = specialLineStyle(styles, network, product.code + Objects.toString(label, ""));
             if (style != null)
                 return style;
 
