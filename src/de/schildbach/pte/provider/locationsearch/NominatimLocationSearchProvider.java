@@ -137,7 +137,6 @@ public class NominatimLocationSearchProvider extends AbstractLocationSearchProvi
         String cType = contentType != null ? contentType : "application/json";
         httpClient.setHeader("Accept", cType);
         if (body != null) httpClient.setHeader("Content-Type", cType);
-        httpClient.setHeader("Accept", cType);
         if (userInterfaceLanguage != null)
             httpClient.setHeader("Accept-Language", userInterfaceLanguage);
         return httpClient.get(url, body, null).toString();
