@@ -457,8 +457,6 @@ public class WordUtils {
             } else if (lastWasGap) {
                 buf[count++] = ch;
                 lastWasGap = false;
-            } else {
-                continue; // ignore ch
             }
         }
         return new String(buf, 0, count);

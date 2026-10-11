@@ -17,10 +17,7 @@
 
 package de.schildbach.pte.provider.openjourneyplanner;
 
-import java.util.Set;
-
 import de.schildbach.pte.NetworkId;
-import de.schildbach.pte.dto.Product;
 
 /*
  *  oev-info.ch

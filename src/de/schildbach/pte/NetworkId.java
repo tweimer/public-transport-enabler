@@ -18,7 +18,6 @@
 package de.schildbach.pte;
 
 import de.schildbach.pte.dto.Point;
-import de.schildbach.pte.provider.efa.BayernLegacyProvider;
 import de.schildbach.pte.provider.hafas.CflProvider;
 import de.schildbach.pte.provider.hafas.IrlProvider;
 import de.schildbach.pte.provider.motis.NwexDirectionsRheinNeckarVerkehrProvider;

@@ -161,7 +161,7 @@ public class VrsProvider extends AbstractNetworkProvider {
     protected static final String SERVER_PRODUCT = "vrs";
 
     @SuppressWarnings("serial")
-    protected static final List<Pattern> NAME_WITH_POSITION_PATTERNS = new ArrayList<Pattern>() {
+    protected static final List<Pattern> NAME_WITH_POSITION_PATTERNS = new ArrayList<>() {
         {
             // Bonn Hauptbahnhof (ZOB) - Bussteig F2
             // Beuel Bf - D
@@ -978,9 +978,9 @@ public class VrsProvider extends AbstractNetworkProvider {
 
     protected static void parsePolygon(final String polygonStr, final List<Point> polygonArr) {
         if (polygonStr != null && !polygonStr.isEmpty()) {
-            final String pointsArr[] = polygonStr.split("\\s");
+            final String[] pointsArr = polygonStr.split("\\s");
             for (final String point : pointsArr) {
-                final String latlon[] = point.split(",");
+                final String[] latlon = point.split(",");
                 polygonArr.add(Point.fromDouble(Double.parseDouble(latlon[0]), Double.parseDouble(latlon[1])));
             }
         }

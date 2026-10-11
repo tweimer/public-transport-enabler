@@ -20,8 +20,6 @@ package de.schildbach.pte.dto;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
 
 import javax.annotation.Nullable;
 

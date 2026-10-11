@@ -423,7 +423,7 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
 
     protected void appendXmlStationBoardParameters(final HttpUrl.Builder url, final @Nullable Date time,
             final String stationId, final int maxDepartures, final boolean equivs, final @Nullable String styleSheet) {
-        url.addQueryParameter("productsFilter", allProductsString().toString());
+        url.addQueryParameter("productsFilter", allProductsString());
         url.addQueryParameter("boardType", "dep");
         if (stationBoardCanDoEquivs)
             url.addQueryParameter("disableEquivs", equivs ? "0" : "1");
@@ -504,7 +504,7 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
                     if (code.equals("H890")) {
                         r.stationDepartures
                                 .add(new StationDepartures(new Location(LocationType.STATION, normalizedStationId),
-                                        Collections.<Departure> emptyList(), null));
+                                        Collections.emptyList(), null));
                         result.set(r);
                         return;
                     }
@@ -676,7 +676,7 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
 
                         StationDepartures stationDepartures = findStationDepartures(r.stationDepartures, location);
                         if (stationDepartures == null) {
-                            stationDepartures = new StationDepartures(location, new ArrayList<Departure>(8), null);
+                            stationDepartures = new StationDepartures(location, new ArrayList<>(8), null);
                             r.stationDepartures.add(stationDepartures);
                         }
 
@@ -693,7 +693,7 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
 
                 // sort departures
                 for (final StationDepartures stationDepartures : r.stationDepartures)
-                    Collections.sort(stationDepartures.departures, Departure.TIME_COMPARATOR);
+                    stationDepartures.departures.sort(Departure.TIME_COMPARATOR);
 
                 result.set(r);
             } catch (final XmlPullParserException x) {
@@ -1533,7 +1533,7 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
                 final int numTrips = is.readShortReverse();
                 if (numTrips == 0) {
                     result.set(new QueryTripsResult(header, url.toString(), from, via, to, null,
-                            new LinkedList<Trip>()));
+                            new LinkedList<>()));
                     return;
                 }
 
@@ -1948,7 +1948,7 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
                     final Trip trip = new Trip(
                             new Date(),
                             connectionId, null, resDeparture, resArrival, legs, null, null,
-                            (int) numChanges);
+                            numChanges);
 
                     if (realtimeStatus != 2) // Verbindung fällt aus
                         trips.add(trip);
@@ -2245,7 +2245,7 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
             appendJsonNearbyPOIsParameters(url, coord, maxDistance, maxLocations);
             return jsonNearbyLocations(url.build());
         } else {
-            return new NearbyLocationsResult(null, Collections.<Location> emptyList());
+            return new NearbyLocationsResult(null, Collections.emptyList());
         }
     }
 
@@ -2256,7 +2256,7 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
     }
 
     protected final void appendXmlNearbyStationsParameters(final HttpUrl.Builder url, final String stationId) {
-        url.addQueryParameter("productsFilter", allProductsString().toString());
+        url.addQueryParameter("productsFilter", allProductsString());
         url.addQueryParameter("boardType", "dep");
         url.addEncodedQueryParameter("input", ParserUtils.urlEncode(normalizeStationId(stationId), requestUrlEncoding));
         url.addQueryParameter("sTI", "1");
@@ -3043,8 +3043,7 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
             return new Line(null, network, product, normalizedName, lineStyle(network, product, normalizedName),
                     comment);
         } else {
-            final Set<Line.Attr> attrSet = new HashSet<>();
-            attrSet.addAll(Arrays.asList(attrs));
+            final Set<Line.Attr> attrSet = new HashSet<>(Arrays.asList(attrs));
             return new Line(null, network, product, normalizedName, lineStyle(network, product, normalizedName),
                     attrSet, comment);
         }

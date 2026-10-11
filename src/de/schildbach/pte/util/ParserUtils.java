@@ -17,9 +17,6 @@
 
 package de.schildbach.pte.util;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -117,7 +114,7 @@ public final class ParserUtils {
                 else if (namedEntity.equals("apos"))
                     c = '\'';
                 else if (namedEntity.equals("szlig"))
-                    c = '\u00df';
+                    c = 'ß';
                 else if (namedEntity.equals("nbsp"))
                     c = ' ';
                 else
@@ -269,35 +266,17 @@ public final class ParserUtils {
             System.out.println(m.group(1));
     }
 
-    public static void printFromReader(final Reader reader) throws IOException {
-        while (true) {
-            final int c = reader.read();
-            if (c == -1)
-                return;
-
-            System.out.print((char) c);
-        }
-    }
-
     public static String urlEncode(final String str, final Charset encoding) {
-        try {
-            return URLEncoder.encode(str, encoding.name());
-        } catch (final UnsupportedEncodingException x) {
-            throw new RuntimeException(x);
-        }
+        return URLEncoder.encode(str, encoding);
     }
 
     public static String urlDecode(final String str, final Charset encoding) {
-        try {
-            return URLDecoder.decode(str, encoding.name());
-        } catch (final UnsupportedEncodingException x) {
-            throw new RuntimeException(x);
-        }
+        return URLDecoder.decode(str, encoding);
     }
 
     public static String firstNotEmpty(final String... strings) {
         for (final String str : strings)
-            if (str != null && str.length() > 0)
+            if (str != null && !str.isEmpty())
                 return str;
 
         return null;

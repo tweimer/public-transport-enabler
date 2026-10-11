@@ -161,7 +161,7 @@ public class CHSearchProvider extends AbstractNetworkProvider {
             final CharSequence res = httpClient.get(queryUrl);
             try {
                 final String jsonResult = res.toString();
-                if (jsonResult.equals("")) {
+                if (jsonResult.isEmpty()) {
                     return new NearbyLocationsResult(resultHeader, NearbyLocationsResult.Status.INVALID_ID);
                 }
                 final JSONArray rawResult = new JSONArray(jsonResult);

@@ -26,7 +26,6 @@ import java.util.List;
 import de.schildbach.pte.dto.TransferDetails;
 import de.schildbach.pte.dto.Trip;
 import de.schildbach.pte.exception.ParserException;
-import de.schildbach.pte.provider.TransferEvaluationApiProvider;
 import de.schildbach.pte.provider.db.DbProvider;
 import okhttp3.HttpUrl;
 

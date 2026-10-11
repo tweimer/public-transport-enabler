@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import de.schildbach.pte.provider.NetworkProvider;

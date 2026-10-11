@@ -21,7 +21,6 @@ import org.msgpack.core.MessagePacker;
 import org.msgpack.core.MessageUnpacker;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 import de.schildbach.pte.util.MessagePackUtils;
 

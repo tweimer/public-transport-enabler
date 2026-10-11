@@ -18,7 +18,6 @@
 package de.schildbach.pte.provider.hafas;
 
 import java.util.Set;
-import java.util.regex.Matcher;
 
 import de.schildbach.pte.NetworkId;
 import de.schildbach.pte.dto.Product;
@@ -76,11 +75,6 @@ public class DsbProvider extends AbstractHafasClientInterfaceProvider {
 
     @Override
     protected String[] splitStationName(final String name) {
-//        final Matcher m = P_SPLIT_NAME_PAREN.matcher(name);
-//        if (m.matches())
-//            return new String[] { m.group(2), m.group(1) };
-//        return super.splitStationName(name);
-
         return new String[]{null, name};
     }
 

@@ -122,5 +122,5 @@ public final class Departure implements Serializable {
         return Objects.hash(plannedTime, predictedTime, line, destination);
     }
 
-    public static final Comparator<Departure> TIME_COMPARATOR = (departure0, departure1) -> departure0.getTime().compareTo(departure1.getTime());
+    public static final Comparator<Departure> TIME_COMPARATOR = Comparator.comparing(Departure::getTime);
 }

@@ -653,7 +653,7 @@ public abstract class DbProvider extends AbstractNetworkProvider {
                 .stream()
                 .filter(e -> e.getValue() == loc.type)
                 .findFirst()
-                .map(e -> e.getKey())
+                .map(Map.Entry::getKey)
                 .orElse("0");
 
         final StringBuilder out = new StringBuilder();
@@ -675,7 +675,7 @@ public abstract class DbProvider extends AbstractNetworkProvider {
         return formatLid(new Location(LocationType.STATION, stationId));
     }
 
-    private static final Map<String, LocationType> ID_LOCATION_TYPE_MAP = new HashMap<String, LocationType>() {
+    private static final Map<String, LocationType> ID_LOCATION_TYPE_MAP = new HashMap<>() {
         @Serial
         private static final long serialVersionUID = 295592979187174489L;
 

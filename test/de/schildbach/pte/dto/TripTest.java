@@ -25,7 +25,6 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**

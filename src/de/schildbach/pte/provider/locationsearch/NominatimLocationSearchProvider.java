@@ -47,7 +47,7 @@ public class NominatimLocationSearchProvider extends AbstractLocationSearchProvi
 
     private final HttpUrl searchEndpoint;
 
-    private static final Map<LocationType, String> LOCATION_TYPE_MAP = new HashMap<LocationType, String>() {
+    private static final Map<LocationType, String> LOCATION_TYPE_MAP = new HashMap<>() {
         private static final long serialVersionUID = -2827675532432392114L;
 
         {

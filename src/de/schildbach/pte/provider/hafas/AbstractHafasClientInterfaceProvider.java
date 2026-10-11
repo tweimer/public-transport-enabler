@@ -589,7 +589,7 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
                 + "\"date\":\"" + jsonDate + "\"," //
                 + "\"time\":\"" + jsonTime + "\"," //
                 + "\"stbLoc\":{\"type\":\"S\"," + "\"state\":\"F\"," // F/M
-                + "\"" + (isLid(normalizedStationId) ? "lid" : "extId") + "\":" + JSONObject.quote(normalizedStationId.toString()) + "}," //
+                + "\"" + (isLid(normalizedStationId) ? "lid" : "extId") + "\":" + JSONObject.quote(normalizedStationId) + "}," //
                 + (canStbFltrEquiv ? "\"stbFltrEquiv\":" + stbFltrEquiv + "," : "") //
                 + "\"maxJny\":" + maxJny + "}", false);
 
@@ -819,7 +819,7 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
 
                         StationDepartures stationDepartures = findStationDepartures(result.stationDepartures, location);
                         if (stationDepartures == null) {
-                            stationDepartures = new StationDepartures(location, new ArrayList<Departure>(8), null);
+                            stationDepartures = new StationDepartures(location, new ArrayList<>(8), null);
                             result.stationDepartures.add(stationDepartures);
                         }
 
@@ -830,7 +830,7 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
 
             // sort departures
             for (final StationDepartures stationDepartures : result.stationDepartures)
-                Collections.sort(stationDepartures.departures, Departure.TIME_COMPARATOR);
+                stationDepartures.departures.sort(Departure.TIME_COMPARATOR);
 
             return result;
         } catch (final JSONException x) {
@@ -848,10 +848,9 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
                 || types.containsAll(EnumSet.of(LocationType.STATION, LocationType.ADDRESS, LocationType.POI)))
             type = "ALL";
         else
-            type = Stream.of(types.contains(LocationType.STATION) ? "S" : "",
-                            types.contains(LocationType.ADDRESS) ? "A" : "",
-                            types.contains(LocationType.POI) ? "P" : "")
-                    .collect(Collectors.joining());
+            type = String.join("", types.contains(LocationType.STATION) ? "S" : "",
+                    types.contains(LocationType.ADDRESS) ? "A" : "",
+                    types.contains(LocationType.POI) ? "P" : "");
         final String loc = "{\"name\":" + JSONObject.quote(constraint + "?") + ",\"type\":\"" + type + "\"}";
         final String request = wrapJsonApiRequest("LocMatch",
                 "{\"input\":{\"field\":\"S\",\"loc\":" + loc + ",\"maxLoc\":" + maxLocations + "}}", false);

@@ -104,7 +104,7 @@ public class NegentweeProvider extends AbstractNetworkProvider {
 
         private final String lang;
 
-        private Language(String lang) {
+        Language(String lang) {
             this.lang = lang;
         }
 
@@ -196,7 +196,7 @@ public class NegentweeProvider extends AbstractNetworkProvider {
     }
 
     private Location queryLocationById(String stationId) throws IOException {
-        HttpUrl url = buildApiUrl("locations/" + stationId, new ArrayList<QueryParameter>());
+        HttpUrl url = buildApiUrl("locations/" + stationId, new ArrayList<>());
         final CharSequence page = httpClient.get(url);
 
         try {
@@ -769,7 +769,7 @@ public class NegentweeProvider extends AbstractNetworkProvider {
 
         // Add types if specified
         String locationTypes = locationTypesToQueryParameterString(types);
-        if (locationTypes.length() > 0)
+        if (!locationTypes.isEmpty())
             queryParameters.add(new QueryParameter("type", locationTypes));
 
         HttpUrl url = buildApiUrl("locations", queryParameters);
@@ -805,7 +805,7 @@ public class NegentweeProvider extends AbstractNetworkProvider {
             final EquivalentStationsMode equivsMode,
             final Set<Product> products) throws IOException {
         // The stationId does not need the / character escaped
-        HttpUrl url = buildApiUrl("locations/" + stationId + "/departure-times", new ArrayList<QueryParameter>());
+        HttpUrl url = buildApiUrl("locations/" + stationId + "/departure-times", new ArrayList<>());
         final CharSequence page;
         try {
             page = httpClient.get(url);

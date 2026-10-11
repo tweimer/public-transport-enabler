@@ -17,10 +17,6 @@
 
 package de.schildbach.pte.live;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Date;
 import java.util.EnumSet;
 
@@ -36,6 +32,8 @@ import de.schildbach.pte.dto.QueryDeparturesResult;
 import de.schildbach.pte.dto.QueryTripsResult;
 import de.schildbach.pte.dto.SuggestLocationsResult;
 import de.schildbach.pte.util.LocationUtil;
+
+import static org.junit.Assert.*;
 
 /**
  * @author full-duplex
@@ -54,9 +52,9 @@ public class NegentweeProviderLiveTest extends AbstractProviderLiveTest {
 
         // Assert that queryNearbyStations only returns STATION locations
         assertNotNull(result.locations);
-        assertTrue(result.locations.size() > 0);
+        assertFalse(result.locations.isEmpty());
         for (Location location : result.locations) {
-            assertEquals(location.type, LocationType.STATION);
+            assertEquals(LocationType.STATION, location.type);
         }
     }
 

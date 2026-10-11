@@ -121,9 +121,9 @@ public class VbbProvider extends AbstractHafasClientInterfaceProvider {
 
     @Override
     protected String normalizeFareName(String name) {
-        name = name.replaceAll("Tarifgebiet ", "");
-        name = name.replaceAll("Einzelfahrausweis", "Einzel");
-        name = name.replaceAll("24-Stunden-Karte", "24 Stunden");
+        name = name.replace("Tarifgebiet ", "");
+        name = name.replace("Einzelfahrausweis", "Einzel");
+        name = name.replace("24-Stunden-Karte", "24 Stunden");
         return name;
     }
 

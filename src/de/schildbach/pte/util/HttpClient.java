@@ -230,13 +230,7 @@ public final class HttpClient {
 
     private OkHttpClient getOkHttpClient() {
         if (okHttpClient == null) {
-            final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(
-                    new HttpLoggingInterceptor.Logger() {
-                        @Override
-                        public void log(@Nonnull final String message) {
-                            log.debug(message);
-                        }
-                    });
+            final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(log::debug);
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
             final Interceptor xmlEncodingInterceptor = !contentEncodingFromXmlPragma ? null : new Interceptor() {

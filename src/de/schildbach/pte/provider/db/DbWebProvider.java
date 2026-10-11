@@ -158,7 +158,7 @@ public abstract class DbWebProvider extends DbProvider {
     private static final HttpUrl WEB_API_BASE = HttpUrl.parse(BASE_URL + "/web/api/");
     private final ResultHeader resultHeader;
 
-    private static final Map<String, Product> PRODUCTS_MAP = new LinkedHashMap<String, Product>() {
+    private static final Map<String, Product> PRODUCTS_MAP = new LinkedHashMap<>() {
         private static final long serialVersionUID = 6581845892244269924L;
 
         {
@@ -472,7 +472,7 @@ public abstract class DbWebProvider extends DbProvider {
         x(final int i) {}
     }
 
-    private static final Set<String> bicycleAttributes = new HashSet<String>() {
+    private static final Set<String> bicycleAttributes = new HashSet<>() {
         private static final long serialVersionUID = 3738440155820969289L;
 
         {
@@ -483,7 +483,7 @@ public abstract class DbWebProvider extends DbProvider {
         }
     };
 
-    private static final Set<String> wheelChairAttributes = new HashSet<String>() {
+    private static final Set<String> wheelChairAttributes = new HashSet<>() {
         private static final long serialVersionUID = 3738440155820969289L;
 
         {
@@ -1067,7 +1067,7 @@ public abstract class DbWebProvider extends DbProvider {
                 final Location location = createLocation(LocationType.STATION, bahnhofsId, null, bahnhofsName, null, null);
                 StationDepartures stationDepartures = result.findStationDepartures(bahnhofsId);
                 if (stationDepartures == null) {
-                    stationDepartures = new StationDepartures(location, new ArrayList<Departure>(8), null);
+                    stationDepartures = new StationDepartures(location, new ArrayList<>(8), null);
                     result.stationDepartures.add(stationDepartures);
                 }
 
@@ -1117,7 +1117,7 @@ public abstract class DbWebProvider extends DbProvider {
             }
 
             for (final StationDepartures stationDepartures : result.stationDepartures)
-                Collections.sort(stationDepartures.departures, Departure.TIME_COMPARATOR);
+                stationDepartures.departures.sort(Departure.TIME_COMPARATOR);
             return result;
         } catch (final InternalErrorException | BlockedException e) {
             return new QueryDeparturesResult(this.resultHeader, QueryDeparturesResult.Status.INVALID_STATION);

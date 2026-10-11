@@ -22,8 +22,6 @@ import static de.schildbach.pte.util.Preconditions.checkState;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 

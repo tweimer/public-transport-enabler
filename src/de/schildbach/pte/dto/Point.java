@@ -18,7 +18,6 @@
 package de.schildbach.pte.dto;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
 

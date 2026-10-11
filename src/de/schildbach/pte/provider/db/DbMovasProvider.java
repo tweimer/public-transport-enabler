@@ -26,23 +26,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.StringJoiner;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -154,7 +138,7 @@ public abstract class DbMovasProvider extends DbProvider {
     );
     private final ResultHeader resultHeader;
 
-    private static final Map<String, Product> PRODUCTS_MAP = new LinkedHashMap<String, Product>() {
+    private static final Map<String, Product> PRODUCTS_MAP = new LinkedHashMap<>() {
         private static final long serialVersionUID = 8275557003393170940L;
 
         {
@@ -172,7 +156,7 @@ public abstract class DbMovasProvider extends DbProvider {
         }
     };
 
-    private static final Map<String, Product> SHORT_PRODUCTS_MAP = new LinkedHashMap<String, Product>() {
+    private static final Map<String, Product> SHORT_PRODUCTS_MAP = new LinkedHashMap<>() {
         private static final long serialVersionUID = -3576798382139244659L;
 
         {
@@ -193,7 +177,7 @@ public abstract class DbMovasProvider extends DbProvider {
         }
     };
 
-    private static final Map<LocationType, String> LOCATION_TYPE_MAP = new HashMap<LocationType, String>() {
+    private static final Map<LocationType, String> LOCATION_TYPE_MAP = new HashMap<>() {
         private static final long serialVersionUID = -2827675532432392114L;
 
         {
@@ -355,8 +339,8 @@ public abstract class DbMovasProvider extends DbProvider {
         if (types == null || types.contains(LocationType.ANY))
             return "\"" + LOCATION_TYPE_MAP.get(LocationType.ANY) + "\"";
         return types.stream()
-                .map(t -> LOCATION_TYPE_MAP.get(t))
-                .filter(t -> t != null)
+                .map(LOCATION_TYPE_MAP::get)
+                .filter(Objects::nonNull)
                 .map(t -> "\"" + t + "\"")
                 .collect(Collectors.joining(", "));
     }
@@ -376,7 +360,7 @@ public abstract class DbMovasProvider extends DbProvider {
             id = lidStr;
             bahnhofsInfoId = null;
         }
-        Point coord = null;
+        Point coord;
         JSONObject pos = loc.optJSONObject("coordinates");
         if (pos == null) {
             pos = loc.optJSONObject("position");
@@ -472,7 +456,7 @@ public abstract class DbMovasProvider extends DbProvider {
         return joiner.toString();
     }
 
-    private static final Set<String> bicycleAttributes = new HashSet<String>() {
+    private static final Set<String> bicycleAttributes = new HashSet<>() {
         private static final long serialVersionUID = 3738440155820969289L;
 
         {
@@ -483,7 +467,7 @@ public abstract class DbMovasProvider extends DbProvider {
         }
     };
 
-    private static final Set<String> wheelChairAttributes = new HashSet<String>() {
+    private static final Set<String> wheelChairAttributes = new HashSet<>() {
         private static final long serialVersionUID = 3738440155820969289L;
 
         {
@@ -1060,7 +1044,7 @@ public abstract class DbMovasProvider extends DbProvider {
                 }
                 StationDepartures stationDepartures = result.findStationDepartures(location.id);
                 if (stationDepartures == null) {
-                    stationDepartures = new StationDepartures(location, new ArrayList<Departure>(8), null);
+                    stationDepartures = new StationDepartures(location, new ArrayList<>(8), null);
                     result.stationDepartures.add(stationDepartures);
                 }
 
@@ -1071,7 +1055,6 @@ public abstract class DbMovasProvider extends DbProvider {
                 final Line line = parseLine(dep, produktGattung);
                 final Stop stop = parseStop(dep, location);
                 final String administrationId = dep.optString("administrationId", null);
-                final String verkehrsmittelNummer = dep.optString("verkehrsmittelNummer", null);
                 final String zugNummer = dep.optString("zugNummer", null);
                 final Departure departure = new Departure(
                         arrivals,
@@ -1096,7 +1079,7 @@ public abstract class DbMovasProvider extends DbProvider {
             }
 
             for (final StationDepartures stationDepartures : result.stationDepartures)
-                Collections.sort(stationDepartures.departures, Departure.TIME_COMPARATOR);
+                stationDepartures.departures.sort(Departure.TIME_COMPARATOR);
             return result;
         } catch (final InternalErrorException | BlockedException e) {
             return new QueryDeparturesResult(this.resultHeader, QueryDeparturesResult.Status.INVALID_STATION);

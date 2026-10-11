@@ -188,7 +188,7 @@ public abstract class BvgProvider extends AbstractHafasClientInterfaceProvider {
 
     @Override
     protected String normalizeFareName(final String fareName) {
-        return fareName.replaceAll("Tarifgebiet ", "");
+        return fareName.replace("Tarifgebiet ", "");
     }
 
     private static final Set<Attr> ATTRS_CIRCLE_CLOCKWISE =
