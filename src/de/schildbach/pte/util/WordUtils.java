@@ -42,7 +42,7 @@ public class WordUtils {
      * </p>
      */
     public WordUtils() {
-        super();
+        //super();
     }
 
     // Empty checks, taken from StringUtils
