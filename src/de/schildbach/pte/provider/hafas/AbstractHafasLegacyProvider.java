@@ -1969,88 +1969,68 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
                     throw new SessionExpiredException();
                 } else if (errorCode == 8) {
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.AMBIGUOUS));
-                    return;
                 } else if (errorCode == 13) {
                     // IN13: Our booking system is currently being used by too many users at the same
                     // time.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.SERVICE_DOWN));
-                    return;
                 } else if (errorCode == 19) {
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.SERVICE_DOWN));
-                    return;
                 } else if (errorCode == 207) {
                     // H207: Unfortunately your connection request can currently not be processed.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.SERVICE_DOWN));
-                    return;
                 } else if (errorCode == 887) {
                     // H887: Your inquiry was too complex. Please try entering less intermediate stations.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.NO_TRIPS));
-                    return;
                 } else if (errorCode == 890) {
                     // H890: No connections have been found that correspond to your request. It is
                     // possible
                     // that the requested service does not operate from or to the places you stated on the
                     // requested date of travel.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.NO_TRIPS));
-                    return;
                 } else if (errorCode == 891) {
                     // H891: Unfortunately there was no route found. Missing timetable data could be the
                     // reason.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.NO_TRIPS));
-                    return;
                 } else if (errorCode == 892) {
                     // H892: Your inquiry was too complex. Please try entering less intermediate stations.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.NO_TRIPS));
-                    return;
                 } else if (errorCode == 899) {
                     // H899: there was an unsuccessful or incomplete search due to a timetable change.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.NO_TRIPS));
-                    return;
                 } else if (errorCode == 900) {
                     // Unsuccessful or incomplete search (timetable change)
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.NO_TRIPS));
-                    return;
                 } else if (errorCode == 9220) {
                     // H9220: Nearby to the given address stations could not be found.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.UNRESOLVABLE_ADDRESS));
-                    return;
                 } else if (errorCode == 9240) {
                     // H9240: Unfortunately there was no route found. Perhaps your start or destination is
                     // not
                     // served at all or with the selected means of transport on the required date/time.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.NO_TRIPS));
-                    return;
                 } else if (errorCode == 9260) {
                     // H9260: Unknown departure station
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.UNKNOWN_FROM));
-                    return;
                 } else if (errorCode == 9280) {
                     // H9280: Unknown intermediate station
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.UNKNOWN_VIA));
-                    return;
                 } else if (errorCode == 9300) {
                     // H9300: Unknown arrival station
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.UNKNOWN_TO));
-                    return;
                 } else if (errorCode == 9320) {
                     // The input is incorrect or incomplete
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.INVALID_DATE));
-                    return;
                 } else if (errorCode == 9360) {
                     // H9360: Unfortunately your connection request can currently not be processed.
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.INVALID_DATE));
-                    return;
                 } else if (errorCode == 9380) {
                     // H9380: Dep./Arr./Intermed. or equivalent station defined more than once
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.TOO_CLOSE));
-                    return;
                 } else if (errorCode == 895) {
                     // H895: Departure/Arrival are too near
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.TOO_CLOSE));
-                    return;
                 } else if (errorCode == 65535) {
                     result.set(new QueryTripsResult(header, QueryTripsResult.Status.SERVICE_DOWN));
-                    return;
                 } else {
                     throw new IllegalStateException("error " + errorCode + " on " + url);
                 }
@@ -2269,8 +2249,8 @@ public abstract class AbstractHafasLegacyProvider extends AbstractHafasProvider 
 
     private static final Pattern P_XML_NEARBY_STATIONS_COARSE = Pattern.compile("\\G<\\s*St\\s*(.*?)/?>(?:\n|\\z)",
             Pattern.DOTALL);
-    private static final Pattern P_XML_NEARBY_STATIONS_FINE = Pattern.compile("" //
-            + "evaId=\"(\\d+)\"\\s*" // id
+    //
+    private static final Pattern P_XML_NEARBY_STATIONS_FINE = Pattern.compile("evaId=\"(\\d+)\"\\s*" // id
             + "name=\"([^\"]+)\".*?" // name
             + "(?:x=\"(\\d+)\"\\s*)?" // x
             + "(?:y=\"(\\d+)\"\\s*)?" // y

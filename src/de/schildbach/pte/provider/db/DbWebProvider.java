@@ -1233,7 +1233,7 @@ public abstract class DbWebProvider extends DbProvider {
             final boolean loadPath) throws IOException {
         final HttpUrl url = this.journeyEndpoint.newBuilder()
                 .addQueryParameter("journeyId", journeyRef.journeyId)
-                .addQueryParameter("poly", loadPath ? "true" : "false")
+                .addQueryParameter("poly", Boolean.toString(loadPath))
                 .build();
         String page = null;
         try {

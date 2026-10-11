@@ -17,6 +17,7 @@
 
 package de.schildbach.pte.live;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -108,7 +109,7 @@ public abstract class AbstractProviderLiveTest {
             if (equivs == NetworkProvider.EquivalentStationsMode.KEEP_DISTINCT)
                 assertTrue(result.stationDepartures.size() > 1);
             else
-                assertTrue(result.stationDepartures.size() == 1);
+                assertEquals(1, result.stationDepartures.size());
         }
 
         return result;

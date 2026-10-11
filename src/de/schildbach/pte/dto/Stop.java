@@ -83,12 +83,12 @@ public final class Stop implements Serializable {
         this.predictedArrivalTime = !departure ? predictedTime : null;
         this.plannedArrivalPosition = !departure ? plannedPosition : null;
         this.predictedArrivalPosition = !departure ? predictedPosition : null;
-        this.arrivalCancelled = !departure ? cancelled : false;
+        this.arrivalCancelled = !departure && cancelled;
         this.plannedDepartureTime = departure ? plannedTime : null;
         this.predictedDepartureTime = departure ? predictedTime : null;
         this.plannedDeparturePosition = departure ? plannedPosition : null;
         this.predictedDeparturePosition = departure ? predictedPosition : null;
-        this.departureCancelled = departure ? cancelled : false;
+        this.departureCancelled = departure && cancelled;
     }
 
     public Stop(final Location location, final PTDate plannedArrivalTime, final Position plannedArrivalPosition,
@@ -119,10 +119,7 @@ public final class Stop implements Serializable {
             return plannedArrivalTime;
         else if (predictedArrivalTime != null)
             return predictedArrivalTime;
-        else if (plannedArrivalTime != null)
-            return plannedArrivalTime;
-        else
-            return null;
+        else return plannedArrivalTime;
     }
 
     public boolean isArrivalTimePredicted() {
@@ -148,10 +145,7 @@ public final class Stop implements Serializable {
     public Position getArrivalPosition() {
         if (predictedArrivalPosition != null)
             return predictedArrivalPosition;
-        else if (plannedArrivalPosition != null)
-            return plannedArrivalPosition;
-        else
-            return null;
+        else return plannedArrivalPosition;
     }
 
     public boolean isArrivalPositionPredicted() {
@@ -171,10 +165,7 @@ public final class Stop implements Serializable {
             return plannedDepartureTime;
         else if (predictedDepartureTime != null)
             return predictedDepartureTime;
-        else if (plannedDepartureTime != null)
-            return plannedDepartureTime;
-        else
-            return null;
+        else return plannedDepartureTime;
     }
 
     public boolean isDepartureTimePredicted() {
@@ -200,10 +191,7 @@ public final class Stop implements Serializable {
     public Position getDeparturePosition() {
         if (predictedDeparturePosition != null)
             return predictedDeparturePosition;
-        else if (plannedDeparturePosition != null)
-            return plannedDeparturePosition;
-        else
-            return null;
+        else return plannedDeparturePosition;
     }
 
     public boolean isDeparturePositionPredicted() {
@@ -296,9 +284,7 @@ public final class Stop implements Serializable {
             return false;
         if (!Objects.equals(this.predictedDeparturePosition, other.predictedDeparturePosition))
             return false;
-        if (this.departureCancelled != other.departureCancelled)
-            return false;
-        return true;
+        return this.departureCancelled == other.departureCancelled;
     }
 
     @Override

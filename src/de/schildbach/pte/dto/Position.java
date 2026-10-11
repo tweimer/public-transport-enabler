@@ -69,8 +69,7 @@ public final class Position implements Serializable {
                 return true;
         }
         if (nameB != null) {
-            if (nameB.equals(samePlatformPositionNameA))
-                return true;
+            return nameB.equals(samePlatformPositionNameA);
         }
         return false;
     }
@@ -84,9 +83,7 @@ public final class Position implements Serializable {
         final Position other = (Position) o;
         if (!Objects.equals(this.name, other.name))
             return false;
-        if (!Objects.equals(this.section, other.section))
-            return false;
-        return true;
+        return Objects.equals(this.section, other.section);
     }
 
     @Override

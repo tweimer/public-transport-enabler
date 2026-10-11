@@ -3199,9 +3199,9 @@ public abstract class AbstractEfaProvider extends AbstractNetworkProvider {
 
         final Stop departure = new Stop(departureLocation, true,
                 departureTargetTime != null ? departureTargetTime : departureTime,
-                departureTime != null ? departureTime : null, departurePosition, null);
+                departureTime, departurePosition, null);
         final Stop arrival = new Stop(arrivalLocation, false,
-                arrivalTargetTime != null ? arrivalTargetTime : arrivalTime, arrivalTime != null ? arrivalTime : null,
+                arrivalTargetTime != null ? arrivalTargetTime : arrivalTime, arrivalTime,
                 arrivalPosition, null);
 
         final Trip.Public leg = new Trip.Public(styledLine, destination, departure, arrival, intermediateStops, message, journeyRef);

@@ -125,9 +125,7 @@ public final class Line implements Serializable, Comparable<Line> {
             return false;
         if (!Objects.equals(this.product, other.product))
             return false;
-        if (!Objects.equals(this.label, other.label))
-            return false;
-        return true;
+        return Objects.equals(this.label, other.label);
     }
 
     @Override

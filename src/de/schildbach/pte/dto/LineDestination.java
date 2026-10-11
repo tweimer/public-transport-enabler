@@ -50,9 +50,7 @@ public final class LineDestination implements Serializable {
         // This workaround is necessary because in rare cases destinations have IDs of other locations.
         final String thisDestinationName = this.destination != null ? this.destination.uniqueShortName() : null;
         final String otherDestinationName = other.destination != null ? other.destination.uniqueShortName() : null;
-        if (!Objects.equals(thisDestinationName, otherDestinationName))
-            return false;
-        return true;
+        return Objects.equals(thisDestinationName, otherDestinationName);
     }
 
     @Override

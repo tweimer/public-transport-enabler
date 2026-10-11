@@ -1019,7 +1019,7 @@ public abstract class AbstractOpenJourneyPlannerProvider extends AbstractNetwork
         document.createTextElement(individualTransportOption, "MaxDistance", maxWalkDistanceMeters);
     }
 
-    private static int NUM_TRIPS_PER_BATCH = 10;
+    private static final int NUM_TRIPS_PER_BATCH = 10;
 
     @Override
     public QueryTripsResult queryTrips(

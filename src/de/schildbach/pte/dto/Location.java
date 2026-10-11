@@ -236,9 +236,7 @@ public final class Location implements MessagePackUtils.PackableSerializable {
         // only discriminate by name/place if no ids are given
         if (!Objects.equals(this.place, other.place))
             return false;
-        if (!Objects.equals(this.name, other.name))
-            return false;
-        return true;
+        return Objects.equals(this.name, other.name);
     }
 
     public boolean equalsAllFields(final Location other) {
@@ -256,9 +254,7 @@ public final class Location implements MessagePackUtils.PackableSerializable {
             return false;
         if (!Objects.equals(this.name, other.name))
             return false;
-        if (!Objects.equals(this.products, other.products))
-            return false;
-        return true;
+        return Objects.equals(this.products, other.products);
     }
 
     @Override

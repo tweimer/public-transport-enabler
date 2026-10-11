@@ -63,9 +63,7 @@ public final class StationDepartures implements Serializable {
             return false;
         if (!Objects.equals(this.departures, other.departures))
             return false;
-        if (!Objects.equals(this.lines, other.lines))
-            return false;
-        return true;
+        return Objects.equals(this.lines, other.lines);
     }
 
     @Override

@@ -243,7 +243,7 @@ public final class Trip implements Serializable {
 
                 if (leg.getDepartureTime().before(previous.getArrivalTime())) {
                     final Individual movedIndividual = individualLeg.movedClone(previous.getArrivalTime());
-                    legs.set(i, (Leg) movedIndividual);
+                    legs.set(i, movedIndividual);
                     }
             }
         }

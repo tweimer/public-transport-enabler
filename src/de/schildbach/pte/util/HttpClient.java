@@ -487,7 +487,6 @@ public final class HttpClient {
                 }
 
                 callback.onSuccessful(bodyPeek, response.body());
-                return;
             } else if (RESPONSE_CODES_BLOCKED.contains(responseCode)) {
                 throw new BlockedException(url, bodyPeek);
             } else if (RESPONSE_CODES_NOT_FOUND.contains(responseCode)) {
@@ -530,10 +529,7 @@ public final class HttpClient {
     public static boolean testExpired(final String content) {
         // check for expired session
         final Matcher mSessionExpired = P_EXPIRED.matcher(content);
-        if (mSessionExpired.find())
-            return true;
-
-        return false;
+        return mSessionExpired.find();
     }
 
     private static final Pattern P_INTERNAL_ERROR = Pattern.compile(
@@ -542,10 +538,7 @@ public final class HttpClient {
     public static boolean testInternalError(final String content) {
         // check for internal error
         final Matcher m = P_INTERNAL_ERROR.matcher(content);
-        if (m.find())
-            return true;
-
-        return false;
+        return m.find();
     }
 
     private void configureSSL(final OkHttpClient.Builder okHttpClientBuilder) {

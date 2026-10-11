@@ -1105,7 +1105,7 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
             final JSONObject head = new JSONObject(page.toString());
             final String headErr = head.optString("err", null);
             if (headErr != null && !"OK".equals(headErr)) {
-                log.warn("Hafas head error: {}", head.toString());
+                log.warn("Hafas head error: {}", head);
                 if ("HAMM".equals(headErr) // ??? (sporadically found on OEBB)
                     || "HAMM_LOAD".equals(headErr) // ??? (sporadically found on DSB)
                 ) {
@@ -1460,7 +1460,7 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
                 + "\"type\":\"M\",\"mode\":\"FBT\",\"meta\":\"foot_speed_" + (walkSpeed != null ? walkSpeed : WalkSpeed.NORMAL).name().toLowerCase() + "\"" //
                 + "},{\"type\":\"P\",\"mode\":\"FB\",\"profile\":{\"type\":\"F\",\"maxdist\":\"" + (maxWalkDistanceMeters != null ? maxWalkDistanceMeters : 2000) + "\"}" //
                 + "}]," //
-                + "\"getPolyline\":" + (loadPath ? "true" : "false") + ",\"getPasslist\":true," //
+                + "\"getPolyline\":" + (Boolean.toString(loadPath)) + ",\"getPasslist\":true," //
                 + (apiLevel <= 24 ? "\"getConGroups\":false," : "") //
                 + (direct ? "\"maxChg\":0," : "") //
                 + "\"minChgTime\":" + (minTransferTimeMinutes != null ? minTransferTimeMinutes : -1) + "," //
@@ -1478,7 +1478,7 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
                         + ((apiLevel >= 40) //
                             ? "\"outReconL\":[{\"ctx\":\"" + tripRef.ctxRecon + "\"}]," //
                             : "\"ctxRecon\":\"" + tripRef.ctxRecon + "\",") //
-                        + "\"getPolyline\":" + (loadPath ? "true" : "false") + ",\"getPasslist\":true,\"getIST\":false}", //
+                        + "\"getPolyline\":" + (Boolean.toString(loadPath)) + ",\"getPasslist\":true,\"getIST\":false}", //
                 false);
 
         return jsonTripRequest("Reconstruction", request, tripRef.from, tripRef.via, tripRef.to,
@@ -1491,7 +1491,7 @@ public abstract class AbstractHafasClientInterfaceProvider extends AbstractHafas
             final boolean loadPath) throws IOException {
         final String request = wrapJsonApiRequest("JourneyDetails", "{" //
                         + "\"jid\":\"" + journeyRef.jid + "\"," //
-                        + "\"getPasslist\":true,\"getPolyline\":" + (loadPath ? "true" : "false") + "}", //
+                        + "\"getPasslist\":true,\"getPolyline\":" + (Boolean.toString(loadPath)) + "}", //
                 false);
 
         final HttpUrl url = requestUrl(request);

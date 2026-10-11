@@ -82,9 +82,7 @@ public final class Point implements MessagePackUtils.PackableSerializable {
         final Point other = (Point) o;
         if (this.lat != other.lat)
             return false;
-        if (this.lon != other.lon)
-            return false;
-        return true;
+        return this.lon == other.lon;
     }
 
     @Override

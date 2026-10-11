@@ -59,9 +59,7 @@ public final class Destination implements Serializable {
         final Destination other = (Destination) o;
         if (!Objects.equals(this.location, other.location))
             return false;
-        if (this.isNotCommonType != other.isNotCommonType)
-            return false;
-        return true;
+        return this.isNotCommonType == other.isNotCommonType;
     }
 
     @Override

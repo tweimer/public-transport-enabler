@@ -69,9 +69,7 @@ public final class Fare implements Serializable {
             return false;
         if (!Objects.equals(this.unitName, other.unitName))
             return false;
-        if (!Objects.equals(this.units, other.units))
-            return false;
-        return true;
+        return Objects.equals(this.units, other.units);
     }
 
     @Override

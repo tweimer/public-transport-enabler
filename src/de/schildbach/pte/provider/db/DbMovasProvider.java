@@ -1171,7 +1171,7 @@ public abstract class DbMovasProvider extends DbProvider {
             final boolean loadPath) throws IOException {
         final HttpUrl url = this.journeyEndpoint.newBuilder()
                 .addPathSegment(journeyRef.journeyId)
-                .addQueryParameter("poly", loadPath ? "true" : "false")
+                .addQueryParameter("poly", Boolean.toString(loadPath))
                 .build();
         final String contentType = "application/x.db.vendo.mob.zuglauf.v2+json";
         String page = null;

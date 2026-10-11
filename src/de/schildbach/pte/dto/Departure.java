@@ -112,9 +112,7 @@ public final class Departure implements Serializable {
             return false;
         if (!Objects.equals(this.line, other.line))
             return false;
-        if (!Objects.equals(this.destination, other.destination))
-            return false;
-        return true;
+        return Objects.equals(this.destination, other.destination);
     }
 
     @Override

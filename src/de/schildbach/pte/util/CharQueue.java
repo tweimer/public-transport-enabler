@@ -64,20 +64,14 @@ final public class CharQueue {
      * Returns true if the queue is empty
      */
     public boolean isEmpty() {
-        if (elementCount == 0)
-            return true;
-        else
-            return false;
+        return elementCount == 0;
     }
 
     /**
      * Returns true if the queue is full
      */
     public boolean isFull() {
-        if (elementCount >= capacity())
-            return true;
-        else
-            return false;
+        return elementCount >= capacity();
     }
 
     /**

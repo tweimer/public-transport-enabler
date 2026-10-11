@@ -41,7 +41,7 @@ public class MessagePackUtils {
         void packToMessage(final MessagePacker packer) throws IOException;
     }
 
-    public interface PackableSerializable extends Packable, Serializable {};
+    public interface PackableSerializable extends Packable, Serializable {}
 
     public static void packNullableString(final MessagePacker packer, final String value) throws IOException {
         if (value == null)

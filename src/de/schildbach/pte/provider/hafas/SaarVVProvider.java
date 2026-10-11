@@ -56,7 +56,7 @@ public class SaarVVProvider extends AbstractHafasClientInterfaceProvider {
         setApiAuthorization(apiAuthorization);
     }
 
-    private Set<Product> PRODUCTS_HAVING_DESTINATION_AS_DIRECTION = Set.of(
+    private final Set<Product> PRODUCTS_HAVING_DESTINATION_AS_DIRECTION = Set.of(
             Product.HIGH_SPEED_TRAIN,
             Product.REGIONAL_TRAIN,
             Product.SUBURBAN_TRAIN);

@@ -120,8 +120,8 @@ public abstract class DbProvider extends AbstractNetworkProvider {
         return doQueryJourneyAndCache((DbJourneyRef) journeyRef, loadPath, null, null);
     }
 
-    private Map<DbJourneyRef, QueryJourneyResult> journeyCache = new ConcurrentHashMap<>();
-    private static long MAX_CACHE_KEEP_MILLIS = 50 * 1000;
+    private final Map<DbJourneyRef, QueryJourneyResult> journeyCache = new ConcurrentHashMap<>();
+    private static final long MAX_CACHE_KEEP_MILLIS = 50 * 1000;
 
     public QueryJourneyResult queryJourneyWithCache(final DbJourneyRef journeyRef) throws IOException {
         cleanupJourneyCache();

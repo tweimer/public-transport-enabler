@@ -141,7 +141,9 @@ public class NegentweeProvider extends AbstractNetworkProvider {
     private static class TripsContext implements QueryTripsContext {
         private static final long serialVersionUID = -7934124534284180966L;
 
-        private String url, earlier, later;
+        private final String url;
+        private final String earlier;
+        private final String later;
         public Location from, to, via;
 
         private TripsContext(HttpUrl url, @Nullable String earlier, @Nullable String later, Location from,
@@ -271,13 +273,13 @@ public class NegentweeProvider extends AbstractNetworkProvider {
         case STATION:
             return Arrays.asList("station", "stop");
         case POI:
-            return Arrays.asList("poi");
+            return List.of("poi");
         case ADDRESS:
             return Arrays.asList("address", "street", "streetrange", "place", "postcode");
         case COORD:
-            return Arrays.asList("latlong");
+            return List.of("latlong");
         default:
-            return Arrays.asList();
+            return List.of();
         }
     }
 
@@ -615,7 +617,7 @@ public class NegentweeProvider extends AbstractNetworkProvider {
 
     private List<Location> solveAmbiguousLocation(Location location) throws IOException {
         if (location.hasId()) {
-            return Arrays.asList(location);
+            return List.of(location);
         } else if (location.hasCoord()) {
             return queryNearbyLocations(EnumSet.of(location.type), location, EquivalentStationsMode.USE_META, -1, -1, null).locations;
         } else if (location.hasName()) {
@@ -866,7 +868,7 @@ public class NegentweeProvider extends AbstractNetworkProvider {
     @Override
     public SuggestLocationsResult suggestLocations(CharSequence constraint, @Nullable Set<LocationType> types,
             int maxLocations) throws IOException {
-        HttpUrl url = buildApiUrl("locations", Arrays.asList(new QueryParameter("q", constraint.toString())));
+        HttpUrl url = buildApiUrl("locations", List.of(new QueryParameter("q", constraint.toString())));
         final CharSequence page;
         try {
             page = httpClient.get(url);
