@@ -49,8 +49,7 @@ public final class SuggestedLocation implements Serializable, Comparable<Suggest
             return 1;
 
         // prefer stations
-        final int compareLocationType = this.location.type.compareTo(other.location.type);
-        return compareLocationType;
+        return this.location.type.compareTo(other.location.type);
     }
 
     @Override
