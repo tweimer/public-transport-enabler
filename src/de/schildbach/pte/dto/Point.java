@@ -77,12 +77,9 @@ public final class Point implements MessagePackUtils.PackableSerializable {
     public boolean equals(final Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Point))
+        if (!(o instanceof Point other))
             return false;
-        final Point other = (Point) o;
-        if (this.lat != other.lat)
-            return false;
-        return this.lon == other.lon;
+        return this.lat == other.lat && this.lon == other.lon;
     }
 
     @Override
