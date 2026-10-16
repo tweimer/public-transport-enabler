@@ -96,9 +96,4 @@ public class PTDate extends Date {
     public int getOffset() {
         return offset;
     }
-
-    @Override
-    public int compareTo(final Date other) {
-        return super.compareTo(other);
-    }
 }
