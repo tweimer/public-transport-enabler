@@ -992,11 +992,7 @@ public class VrsProvider extends AbstractNetworkProvider {
             final boolean loadPath) throws IOException {
         final Context ctx = (Context) context;
         final TripOptions options = new TripOptions(ctx.products, null, null, null, null, null, null);
-        if (later) {
-            return queryTrips(ctx.from, ctx.via, ctx.to, ctx.getLastDeparture(), true, options, loadPath);
-        } else {
-            return queryTrips(ctx.from, ctx.via, ctx.to, ctx.getFirstArrival(), false, options, loadPath);
-        }
+        return queryTrips(ctx.from, ctx.via, ctx.to, later ? ctx.getLastDeparture() : ctx.getFirstArrival(), later, options, loadPath);
     }
 
     @Override
@@ -1013,7 +1009,7 @@ public class VrsProvider extends AbstractNetworkProvider {
         final String number = processLineNumber(line.getString("number"));
         final Product productObj = parseProduct(line.getString("product"), number);
         final Style style = lineStyle("vrs", productObj, number);
-        return new Line(null /* id */, NetworkId.VRS.toString(), productObj, number, style);
+        return new Line(null, NetworkId.VRS.toString(), productObj, number, style);
     }
 
     private static String processLineNumber(final String number) {
