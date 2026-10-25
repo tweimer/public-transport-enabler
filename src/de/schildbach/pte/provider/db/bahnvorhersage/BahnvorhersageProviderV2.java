@@ -92,9 +92,9 @@ public final class BahnvorhersageProviderV2 extends AbstractBahnvorhersageProvid
     private JSONObject buildTripsObject(final Trip trip, final boolean nullOnAnyError) throws IOException, JSONException {
         final JSONObject oTrips = new JSONObject();
         for (final Trip.Leg leg : trip.legs) {
-            if (!(leg instanceof Trip.Public))
+            if (!(leg instanceof Trip.Public pubLeg))
                 continue;
-            final DbProvider.DbJourneyRef journeyRef = (DbProvider.DbJourneyRef) ((Trip.Public) leg).journeyRef;
+            final DbProvider.DbJourneyRef journeyRef = (DbProvider.DbJourneyRef) pubLeg.journeyRef;
             final QueryJourneyResult result = dbProvider.queryJourneyWithCache(journeyRef);
             if (result == null || result.status != QueryJourneyResult.Status.OK) {
                 if (nullOnAnyError)
@@ -123,8 +123,7 @@ public final class BahnvorhersageProviderV2 extends AbstractBahnvorhersageProvid
         JSONObject prevTransferObject = null;
         for (final Trip.Leg leg : trip.legs) {
             final JSONObject oLeg;
-            if (leg instanceof Trip.Public) {
-                final Trip.Public pubLeg = (Trip.Public) leg;
+            if (leg instanceof Trip.Public pubLeg) {
                 if (prevTransferObject != null) {
                     oLegs.put(prevTransferObject);
                     prevTransferObject = null;
@@ -133,9 +132,9 @@ public final class BahnvorhersageProviderV2 extends AbstractBahnvorhersageProvid
                 }
                 oLeg = buildLegObject(pubLeg, "tripId");
                 prevPublicLeg = pubLeg;
-            } else if (leg instanceof Trip.Individual) {
+            } else if (leg instanceof Trip.Individual indLeg) {
                 if (prevPublicLeg != null) {
-                    prevTransferObject = buildTransferObject((Trip.Individual) leg);
+                    prevTransferObject = buildTransferObject(indLeg);
                     prevPublicLeg = null;
                 }
                 continue;
@@ -170,9 +169,8 @@ public final class BahnvorhersageProviderV2 extends AbstractBahnvorhersageProvid
         );
 
         final JSONArray stopOvers = new JSONArray();
-        JSONObject oStopOver;
-
-        oStopOver = new JSONObject();
+        
+        JSONObject oStopOver = new JSONObject();
         oStopOver.put("stop", buildLocationObject(departureStop.location));
         setCancelled(oStopOver, departureStop.departureCancelled);
         buildStopData(oStopOver, departureStop, false);
